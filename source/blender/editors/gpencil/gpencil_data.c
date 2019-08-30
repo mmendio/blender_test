@@ -2961,3 +2961,30 @@ bool ED_gpencil_add_lattice_modifier(const bContext *C,
 
   return true;
 }
+
+/* ***************** Set Active material from sample ************************ */
+
+static int gpencil_color_sample_material_exec(bContext *C, wmOperator *UNUSED(op))
+{
+  /* TODO: get selected stroke material and set to active material */
+
+  /* notifiers */
+  WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+
+  return OPERATOR_FINISHED;
+}
+
+void GPENCIL_OT_color_sample_material(wmOperatorType *ot)
+{
+  /* identifiers */
+  ot->name = "Set Active Material from Sample";
+  ot->idname = "GPENCIL_OT_color_sample_material";
+  ot->description = "Set the active material from a sample material";
+
+  /* callbacks */
+  ot->exec = gpencil_color_sample_material_exec;
+  ot->poll = gpencil_active_color_poll;
+
+  /* flags */
+  ot->flag = OPTYPE_REGISTER | OPTYPE_UNDO;
+}
