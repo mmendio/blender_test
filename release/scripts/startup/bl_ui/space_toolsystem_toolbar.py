@@ -1320,6 +1320,17 @@ class _defs_gpencil_paint:
         )
 
     @ToolDef.from_fn
+    def sample_material():
+        return dict(
+            idname="builtin.sample_material",
+            label="Sample Material",
+            icon="ops.paint.weight_sample",
+            cursor='CROSSHAIR',
+            widget=None,
+            keymap=(),
+        )
+
+    @ToolDef.from_fn
     def line():
         return dict(
             idname="builtin.line",
@@ -2018,6 +2029,8 @@ class VIEW3D_PT_tools_active(ToolSelectPanelHelper, Panel):
             None,
             _defs_gpencil_paint.generate_from_brushes,
             _defs_gpencil_paint.cutter,
+            None,
+            _defs_gpencil_paint.sample_material,
             None,
             _defs_gpencil_paint.line,
             _defs_gpencil_paint.arc,
