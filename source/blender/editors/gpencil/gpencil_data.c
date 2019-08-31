@@ -2964,9 +2964,28 @@ bool ED_gpencil_add_lattice_modifier(const bContext *C,
 
 /* ***************** Set Active material from sample ************************ */
 
-static int gpencil_color_sample_material_exec(bContext *C, wmOperator *UNUSED(op))
+/* Invoke handler: Initialize the operator */
+static int gpencil_material_sample_invoke(bContext *C, wmOperator *op, const wmEvent *event)
 {
-  /* TODO: get selected stroke material and set to active material */
+
+  printf("Hola\n");
+}
+
+static int gpencil_sample_material_invoke(bContext *C, wmOperator *op)
+{
+  Object *ob = CTX_data_active_object(C);
+  bGPdata *gpd = ED_gpencil_data_get_active(C);
+  Material *active_ma = BKE_material_gpencil_get(ob, ob->actcol);
+  MaterialGPencilStyle *active_color = BKE_material_gpencil_settings_get(ob, ob->actcol);
+  MaterialGPencilStyle *gp_style;
+
+  printf("Hola\n");
+
+  /* TODO: get selected stroke material */
+  /* BKE_report(op->reports, RPT_ERROR, "No stroke selected"); */
+  /* return OPERATOR_CANCELLED;*/
+
+  /* TODO: set active material to selected stroke material */
 
   /* notifiers */
   WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
@@ -2974,15 +2993,15 @@ static int gpencil_color_sample_material_exec(bContext *C, wmOperator *UNUSED(op
   return OPERATOR_FINISHED;
 }
 
-void GPENCIL_OT_color_sample_material(wmOperatorType *ot)
+void GPENCIL_OT_sample_material(wmOperatorType *ot)
 {
   /* identifiers */
-  ot->name = "Set Active Material from Sample";
-  ot->idname = "GPENCIL_OT_color_sample_material";
-  ot->description = "Set the active material from a sample material";
+  ot->name = "Sample Material";
+  ot->idname = "GPENCIL_OT_sample_material";
+  ot->description = "Use the mouse to sample a material and convert into the active material";
 
   /* callbacks */
-  ot->exec = gpencil_color_sample_material_exec;
+  ot->invoke = gpencil_sample_material_invoke;
   ot->poll = gpencil_active_color_poll;
 
   /* flags */

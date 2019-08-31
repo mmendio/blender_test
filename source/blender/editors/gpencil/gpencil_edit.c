@@ -3821,6 +3821,10 @@ static int gp_stroke_simplify_fixed_exec(bContext *C, wmOperator *op)
   bGPdata *gpd = ED_gpencil_data_get_active(C);
   int steps = RNA_int_get(op->ptr, "step");
 
+  int nada = 0;
+  CLAMP_MIN(nada, 1);
+  int puf = steps / nada;
+
   /* sanity checks */
   if (ELEM(NULL, gpd)) {
     return OPERATOR_CANCELLED;
