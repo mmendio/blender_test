@@ -3821,10 +3821,6 @@ static int gp_stroke_simplify_fixed_exec(bContext *C, wmOperator *op)
   bGPdata *gpd = ED_gpencil_data_get_active(C);
   int steps = RNA_int_get(op->ptr, "step");
 
-  int nada = 0;
-  CLAMP_MIN(nada, 1);
-  int puf = steps / nada;
-
   /* sanity checks */
   if (ELEM(NULL, gpd)) {
     return OPERATOR_CANCELLED;
@@ -4664,4 +4660,50 @@ void GPENCIL_OT_stroke_merge_by_distance(wmOperatorType *ot)
   prop = RNA_def_boolean(
       ot->srna, "use_unselected", 0, "Unselected", "Use whole stroke, not only selected points");
   RNA_def_property_flag(prop, PROP_SKIP_SAVE);
+}
+
+/* ***************** Set Active material from sample ************************ */
+
+static bool gpencil_sample_material_poll(bContext *C)
+{
+  bGPdata *gpd = ED_gpencil_data_get_active(C);
+
+  if (GPENCIL_PAINT_MODE(gpd)) {
+    if (gpd->layers.first) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+static int gpencil_sample_material_invoke(bContext *C, wmOperator *op, const wmEvent *event)
+{
+  ViewContext vc;
+
+  printf("Hola\n");
+
+  /* TODO: get selected stroke material */
+
+  /* TODO: set active material to selected stroke material */
+
+  /* notifiers */
+  WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+
+  return OPERATOR_FINISHED;
+}
+
+void GPENCIL_OT_sample_material(wmOperatorType *ot)
+{
+  /* identifiers */
+  ot->name = "Sample Material";
+  ot->idname = "GPENCIL_OT_sample_material";
+  ot->description = "Use the mouse to sample a material and convert into the active material";
+
+  /* callbacks */
+  ot->invoke = gpencil_sample_material_invoke;
+  ot->poll = gpencil_sample_material_poll;
+
+  /* flags */
+  ot->flag = OPTYPE_UNDO;
 }

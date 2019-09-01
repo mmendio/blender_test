@@ -1325,7 +1325,7 @@ class _defs_gpencil_paint:
             idname="builtin.sample_material",
             label="Sample Material",
             icon="ops.paint.weight_sample",
-            cursor='CROSSHAIR',
+            cursor='EYEDROPPER',
             widget=None,
             keymap=(),
         )
