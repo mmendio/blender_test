@@ -2982,63 +2982,6 @@ void GPENCIL_OT_set_active_material(wmOperatorType *ot)
   ot->flag = OPTYPE_REGISTER | OPTYPE_UNDO;
 }
 
-/* ***************** Set Active material from sample ************************ */
-
-static bool gpencil_sample_material_poll(bContext *C)
-{
-  bGPdata *gpd = ED_gpencil_data_get_active(C);
-
-  if (GPENCIL_PAINT_MODE(gpd)) {
-    if (gpd->layers.first) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-static int gpencil_sample_material_invoke(bContext *C, wmOperator *op, const wmEvent *event)
-{
-  Object *ob = CTX_data_active_object(C);
-  bGPdata *gpd = ED_gpencil_data_get_active(C);
-
-  /* sanity checks */
-  if (gpd == NULL) {
-    BKE_report(op->reports, RPT_ERROR, "No Grease Pencil data");
-    return OPERATOR_CANCELLED;
-  }
-
-  /* TODO: get selected stroke material */
-
-  // gpencil_select_exec(C, op);
-  // bGPDstroke *gps = gpl->actframe->strokes.first;
-
-  /* TODO: set active material to selected stroke material */
-  ob->actcol = 1;  // gps->mat_nr + 1;
-
-  /* TODO: deselect last stroke selection*/
-
-  /* notifiers */
-  WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
-
-  return OPERATOR_FINISHED;
-}
-
-void GPENCIL_OT_sample_material(wmOperatorType *ot)
-{
-  /* identifiers */
-  ot->name = "Sample Material";
-  ot->idname = "GPENCIL_OT_sample_material";
-  ot->description = "Use the mouse to sample a material and convert into the active material";
-
-  /* callbacks */
-  ot->invoke = gpencil_sample_material_invoke;
-  ot->poll = gpencil_sample_material_poll;
-
-  /* flags */
-  ot->flag = OPTYPE_UNDO;
-}
-
 /* Parent GPencil object to Lattice */
 bool ED_gpencil_add_lattice_modifier(const bContext *C,
                                      ReportList *reports,
