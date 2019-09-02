@@ -2956,6 +2956,7 @@ static int gpencil_set_active_material_exec(bContext *C, wmOperator *op)
 
       /* Change Active material */
       ob->actcol = gps->mat_nr + 1;
+      break;
     }
   }
   CTX_DATA_END;
