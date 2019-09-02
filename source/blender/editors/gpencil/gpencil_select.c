@@ -1614,15 +1614,10 @@ static int gpencil_sample_material_invoke(bContext *C, wmOperator *op, const wmE
     return OPERATOR_CANCELLED;
   }
 
-  /* TODO: get selected stroke material */
+  /* TODO: get stroke material under cursor */
 
-  // gpencil_select_exec(C, op);
-  // bGPDstroke *gps = gpl->actframe->strokes.first;
-
-  /* TODO: set active material to selected stroke material */
+  /* TODO: set active material to the stroke material */
   ob->actcol = 1;  // gps->mat_nr + 1;
-
-  /* TODO: deselect last stroke selection*/
 
   /* notifiers */
   WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
