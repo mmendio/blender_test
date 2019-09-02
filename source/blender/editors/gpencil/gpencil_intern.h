@@ -528,6 +528,7 @@ void GPENCIL_OT_color_reveal(struct wmOperatorType *ot);
 void GPENCIL_OT_color_lock_all(struct wmOperatorType *ot);
 void GPENCIL_OT_color_unlock_all(struct wmOperatorType *ot);
 void GPENCIL_OT_color_select(struct wmOperatorType *ot);
+void GPENCIL_OT_set_active_material(struct wmOperatorType *ot);
 void GPENCIL_OT_sample_material(struct wmOperatorType *ot);
 
 /* convert old 2.7 files to 2.8 */

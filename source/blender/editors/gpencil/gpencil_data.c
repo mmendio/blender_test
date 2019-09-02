@@ -2920,6 +2920,28 @@ void GPENCIL_OT_color_select(wmOperatorType *ot)
   RNA_def_property_flag(ot->prop, PROP_HIDDEN | PROP_SKIP_SAVE);
 }
 
+/* ***************** Set selected stroke the active material ************************ */
+
+static int gpencil_set_active_material_exec(bContext *C, wmOperator *op)
+{
+  printf("Hola\n");
+}
+
+void GPENCIL_OT_set_active_material(wmOperatorType *ot)
+{
+  /* identifiers */
+  ot->name = "Set the active material";
+  ot->idname = "GPENCIL_OT_set_active_material";
+  ot->description = "Set selected stroke the active material";
+
+  /* callbacks */
+  ot->exec = gpencil_set_active_material_exec;
+  ot->poll = gpencil_active_color_poll;
+
+  /* flags */
+  ot->flag = OPTYPE_REGISTER | OPTYPE_UNDO;
+}
+
 /* Parent GPencil object to Lattice */
 bool ED_gpencil_add_lattice_modifier(const bContext *C,
                                      ReportList *reports,
