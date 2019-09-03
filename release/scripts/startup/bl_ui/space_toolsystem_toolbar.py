@@ -1320,17 +1320,6 @@ class _defs_gpencil_paint:
         )
 
     @ToolDef.from_fn
-    def sample_material():
-        return dict(
-            idname="builtin.sample_material",
-            label="Sample Material",
-            icon="ops.paint.weight_sample",
-            cursor='EYEDROPPER',
-            widget=None,
-            keymap=(),
-        )
-
-    @ToolDef.from_fn
     def line():
         return dict(
             idname="builtin.line",
