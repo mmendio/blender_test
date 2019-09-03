@@ -6429,7 +6429,11 @@ class VIEW3D_PT_gpencil_sculpt_context_menu(Panel):
 
         layout.operator_context = 'INVOKE_REGION_WIN'
 
-        layout.operator("gpencil.blank_frame_add", text="Insert Blank", icon='ADD')
+        layout.operator("gpencil.blank_frame_add", text="Insert Blank in Active Layer", icon='ADD')
+        layout.operator("gpencil.blank_frame_add", text="Insert Blank in All Layers", icon='ADD').all_layers = True
+
+        layout.separator()
+
         layout.operator("gpencil.frame_duplicate", text="Duplicate Active Layer", icon='DUPLICATE')
         layout.operator("gpencil.frame_duplicate", text="Duplicate All Layers", icon='DUPLICATE').mode = 'ALL'
 
@@ -6462,7 +6466,11 @@ class VIEW3D_PT_gpencil_draw_context_menu(Panel):
 
         layout.operator_context = 'INVOKE_REGION_WIN'
 
-        layout.operator("gpencil.blank_frame_add", text="Insert Blank", icon='ADD')
+        layout.operator("gpencil.blank_frame_add", text="Insert Blank in Active Layer", icon='ADD')
+        layout.operator("gpencil.blank_frame_add", text="Insert Blank in All Layers", icon='ADD').all_layers = True
+
+        layout.separator()
+
         layout.operator("gpencil.frame_duplicate", text="Duplicate Active Layer", icon='DUPLICATE')
         layout.operator("gpencil.frame_duplicate", text="Duplicate All Layers", icon='DUPLICATE').mode = 'ALL'
 
