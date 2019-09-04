@@ -4374,7 +4374,7 @@ class VIEW3D_MT_edit_armature_delete(Menu):
         layout.operator("armature.dissolve", text="Dissolve Bones")
 
 
-# ********** Grease Pencil Stroke menus **********
+# ********** Grease Pencil menus **********
 class VIEW3D_MT_gpencil_autoweights(Menu):
     bl_label = "Generate Weights"
 
@@ -6373,8 +6373,9 @@ class VIEW3D_MT_gpencil_edit_context_menu(Menu):
             col.separator()
 
             # Layer and Materials operators
-            col.menu("GPENCIL_MT_move_to_layer")            
+            col.menu("GPENCIL_MT_move_to_layer")
             col.menu("VIEW3D_MT_assign_material")
+            col.operator("gpencil.set_active_material", text="Set as Active Material")
             col.operator_menu_enum("gpencil.stroke_arrange", "direction", text="Arrange Strokes")
 
             col.separator()
