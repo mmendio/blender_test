@@ -2019,8 +2019,6 @@ class VIEW3D_PT_tools_active(ToolSelectPanelHelper, Panel):
             _defs_gpencil_paint.generate_from_brushes,
             _defs_gpencil_paint.cutter,
             None,
-            _defs_gpencil_paint.sample_material,
-            None,
             _defs_gpencil_paint.line,
             _defs_gpencil_paint.arc,
             _defs_gpencil_paint.curve,
