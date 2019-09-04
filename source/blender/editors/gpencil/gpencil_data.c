@@ -2933,18 +2933,26 @@ static int gpencil_set_active_material_exec(bContext *C, wmOperator *op)
     return OPERATOR_CANCELLED;
   }
 
-  /* Loop all selected strokes. */
+  int lowest_index = INT_MAX;
+  bool selected = false;
+  /* Loop all selected strokes and select always the lowest material index. */
   GP_EDITABLE_STROKES_BEGIN (gpstroke_iter, C, gpl, gps) {
     if (gps->flag & GP_STROKE_SELECT) {
       /* Change Active material. */
-      ob->actcol = gps->mat_nr + 1;
-      break;
+      if (gps->mat_nr < lowest_index) {
+        lowest_index = gps->mat_nr;
+        selected = true;
+      }
     }
   }
   GP_EDITABLE_STROKES_END(gpstroke_iter);
 
-  /* notifiers */
-  WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+  /* Set material. */
+  if (selected) {
+    ob->actcol = lowest_index + 1;
+    /* notifiers */
+    WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+  }
 
   return OPERATOR_FINISHED;
 }
