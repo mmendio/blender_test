@@ -2926,6 +2926,7 @@ static int gpencil_set_active_material_exec(bContext *C, wmOperator *op)
 {
   Object *ob = CTX_data_active_object(C);
   bGPdata *gpd = ED_gpencil_data_get_active(C);
+  bool changed = false;
 
   /* Sanity checks. */
   if (gpd == NULL) {
@@ -2938,13 +2939,16 @@ static int gpencil_set_active_material_exec(bContext *C, wmOperator *op)
     if (gps->flag & GP_STROKE_SELECT) {
       /* Change Active material. */
       ob->actcol = gps->mat_nr + 1;
+      changed = true;
       break;
     }
   }
   GP_EDITABLE_STROKES_END(gpstroke_iter);
 
   /* notifiers */
-  WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+  if (changed) {
+    WM_event_add_notifier(C, NC_GPENCIL | ND_DATA | NA_EDITED, NULL);
+  }
 
   return OPERATOR_FINISHED;
 }
